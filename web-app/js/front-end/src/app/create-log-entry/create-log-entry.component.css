@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+textarea {
+  min-height: 17px;
+  height: 17px;
+  min-width: 200px;
+  width: 200px;
+  max-width: 50%;
+  border: 1px solid #11113D;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+.content {
+  width: 100%;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  width: 60% !important;
+  max-width: 60% !important;
+  overflow-wrap: break-word; /* Ensures long words break to fit within the container */
+  word-wrap: break-word; /* Compatibility for older browsers */
+}
+
+.author {
+  margin-bottom: 10px;
+}
+
+.dates {
+  margin-bottom: 20px;
+}
+
+.dates div {
+  margin-bottom: 5px;
+}
+
+.description {
+  margin-bottom: 20px;
+  width: 60% !important;
+  max-width: 60% !important;
+  overflow-wrap: break-word; /* Ensures long words break to fit within the container */
+  word-wrap: break-word; /* Compatibility for older browsers */
+}
+
+.files table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.files th, .files td {
+  border: 1px solid #FF7A00;
+  padding: 8px;
+  text-align: left;
+  width: 33.3% !important;
+  max-width: 33.3% !important;
+}
+
+.files th {
+  background-color: #11113D;
+  color: #FF7A00;
+}
+
+.files tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.submit {
+  display: block; /* Adicione isso para assegurar que o margin auto funcione */
+  margin: 20px auto; /* Centraliza horizontalmente e adiciona margem vertical */
+  padding: 10px;
+  background-color: #11113D;
+  border-radius: 5px;
+  border: 2px solid #FF7A00;
+  color: #FF7A00;
+  user-select: none;
+  text-align: center; /* Centraliza o texto dentro do botão */
+}
+
+.submit:hover {
+  background-color: #FF7A00;
+  color: white;
+  cursor: pointer;
+}

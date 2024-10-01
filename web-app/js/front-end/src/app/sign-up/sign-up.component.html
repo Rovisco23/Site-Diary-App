@@ -1,0 +1,157 @@
+<div class="container">
+  <div class="left">
+    <img src="assets/logo.png" alt="" class="logo">
+    <h1 class="title">Livro de obra</h1>
+  </div>
+  <div class="right">
+    <h1 class="page-title">Registar</h1>
+    <form (ngSubmit)="signUp()">
+      <div class="three-inputs">
+        <div class="field">
+          <div>
+            <label for="email">Email</label>
+          </div>
+          <div>
+            <input type="email" id="email" name="email" placeholder="Email*" [(ngModel)]="email" required>
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label for="username">Nome de Utilizador</label>
+          </div>
+          <div>
+            <input type="text" id="username" name="username" placeholder="Nome de Utilizador*" [(ngModel)]="username"
+                   required>
+          </div>
+        </div>
+        <div class="field" style="position: relative;">
+          <div>
+            <label for="password">Palavra Passe</label>
+          </div>
+          <div>
+            <div class="password-input-container">
+              <input type="password" id="password" name="password" placeholder="Palavra Passe*" [(ngModel)]="password"
+                     required>
+              <mat-icon *ngIf="!passwordVisible" class="visibility-icon" (click)="togglePasswordVisibility()">
+                visibility
+              </mat-icon>
+              <mat-icon *ngIf="passwordVisible" class="visibility-icon" (click)="togglePasswordVisibility()">
+                visibility_off
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="three-inputs">
+        <div class="field">
+          <div>
+            <label for="firstName">Nome Próprio</label>
+          </div>
+          <div>
+            <input type="text" id="firstName" name="firstName" placeholder="Nome*" [(ngModel)]="firstName" required>
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label for="lastName">Apelido</label>
+          </div>
+          <div>
+            <input type="text" id="lastName" name="lastName" placeholder="Apelido*" [(ngModel)]="lastName" required>
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label for="nif">NIF</label>
+          </div>
+          <div>
+            <input type="text" id="nif" name="nif" placeholder="N°. Identificação Fiscal*" [(ngModel)]="nif" required>
+          </div>
+        </div>
+      </div>
+      <div class="three-inputs">
+        <div class="field">
+          <div>
+            <label for="phone">Telefone</label>
+          </div>
+          <div>
+            <input type="text" id="phone" name="phone" placeholder="N°. de telefone" [(ngModel)]="phone">
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label for="association-name">Associação</label>
+          </div>
+          <div>
+            <input type="text" id="association-name" name="association-name" placeholder="Nome da associação*"
+                   [(ngModel)]="association_name">
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label for="association-num">N°. de Associado</label>
+          </div>
+          <div>
+            <input type="text" id="association-num" name="association-num" placeholder="N°. de associado*"
+                   [(ngModel)]="association_num">
+          </div>
+        </div>
+      </div>
+      <div class="three-inputs">
+        <div class="field">
+          <div>
+            <label>Distrito</label>
+          </div>
+          <div>
+            <select class="selector" id="district" name="district" [(ngModel)]="district">
+              <option value="" disabled selected>Distrito*</option>
+              <ng-container *ngFor="let distrito of districts">
+                <option [value]="distrito">{{ distrito }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label>Concelho</label>
+          </div>
+          <div>
+            <select class="selector" id="county" name="county" [(ngModel)]="county"
+                    (change)="updateLocation(true)">
+              <option value="" disabled selected>Concelho*</option>
+              <ng-container *ngFor="let concelho of counties">
+                <option [value]="concelho">{{ concelho }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-left: 5px">
+          <div>
+            <label>Freguesia</label>
+          </div>
+          <div>
+            <select class="selector" id="parish" name="Parish" [(ngModel)]="parish"
+                    (change)="updateLocation(false)">
+              <option value="" disabled selected>Freguesia*</option>
+              <ng-container *ngFor="let freguesia of parishes">
+                <option [value]="freguesia">{{ freguesia }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="field" style="flex-direction: row; justify-content: center">
+          <label for="role" class="text" style="font-size: 16px;">Câmara Municipal </label>
+          <input type="checkbox" id="role" name="role" [(ngModel)]="isChecked" (change)="changeRole()"
+                 style="width: 15px; height: 15px;">
+        </div>
+      </div>
+      <div>
+        <button mat-stroked-button class="submit" type="submit">Registar</button>
+      </div>
+    </form>
+    <div>
+      <p class="text">Já tens conta? <a (click)="onLoginClick()">Inicia sessão aqui.</a></p>
+    </div>
+  </div>
+</div>

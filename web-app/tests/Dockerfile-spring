@@ -1,0 +1,4 @@
+FROM openjdk:17
+COPY jvm/build/libs /usr/app
+WORKDIR /usr/app
+CMD ["java", "-jar", "sitediary-1.0.0-FINAL.jar"]

@@ -1,0 +1,30 @@
+<div class="main-container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <span class="title">Pedidos de verificação</span>
+</div>
+<div>
+    <input type="text" placeholder="Procurar Verificação" [(ngModel)]="inputValue" (ngModelChange)="filterVerifications(inputValue)">
+</div>
+<mat-divider></mat-divider>
+<div>
+  <mat-list *ngFor="let entry of filteredVerifications">
+    <mat-list-item (click)="getOpeningTerm(entry.id)">
+      <div matListItemTitle>{{ entry.name }}</div>
+      <div matListItemLine>{{ entry.owner }} pediu autorização à câmara para a obra {{entry.name}}</div>
+      <div matListItemMeta>
+        <button mat-icon-button class="accept-button" (click)="onAccept(entry.id)">
+          <mat-icon>check</mat-icon>
+        </button>
+        <button mat-icon-button class="refuse-button" (click)="onDecline(entry.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>

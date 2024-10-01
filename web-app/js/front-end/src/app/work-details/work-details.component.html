@@ -1,0 +1,416 @@
+<div class="main-container">
+  <div class="sidebar">
+    <div>
+      <div class="sidebar-header">
+        <div class="small-button">
+          <button (click)="onBackCall()">
+            <mat-icon class="small-icon">arrow_back</mat-icon>
+          </button>
+          <span (click)="onBackCall()">Voltar</span>
+        </div>
+      </div>
+      <div class="sidebar-content">
+        <span class="sidebar-title" *ngIf="!editWork">
+          <mat-icon style="margin-right: 10px; color: green;" *ngIf="work?.verification">verified</mat-icon>
+          <mat-icon style="margin-right: 10px; color: red;" *ngIf="work?.state === 'Rejeitada'">cancel</mat-icon>
+          {{ work?.name }}
+        </span>
+        <input *ngIf="editWork" class="edit-input" style="margin-bottom: 10px" type="text" id="workName" name="workName" placeholder="Nome da obra"
+               [(ngModel)]="editWorkName" required>
+        <div *ngIf="!checkActionPermissions('invite')" class="image-container">
+          <img src="{{workSrc}}" class="work-image" alt="Work Image">
+        </div>
+        <div *ngIf="checkActionPermissions('invite')">
+          <input type="file" (change)="onImageChange($event)" #fileInput style="display:none">
+          <button type="button" class="image-container-change" (click)="fileInput.click()">
+            <img src="{{ editSrc ?? workSrc }}" alt="Profile Picture">
+          </button>
+        </div>
+        <div *ngIf="editPicture" style="display: flex; flex-direction: row; justify-content: center">
+          <div class="edit" *ngIf="editSrc" (click)="onSubmitImageChange()">
+            <div class="change-picture">
+              <span class="change-picture-button-text">Submeter</span>
+            </div>
+          </div>
+          <div class="edit" *ngIf="!(editSrc == './assets/profile.png') || editSrc" (click)="onCancelImageChange()">
+            <div class="change-picture">
+              <span class="change-picture-button-text">Cancelar</span>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item">
+            <a [ngClass]="tabIndex === 1 ? 'sidebar-menu-link-selected' : 'sidebar-menu-link'" (click)="changeTab(1)">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              info
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Visão Geral
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a [ngClass]="tabIndex === 0 ? 'sidebar-menu-link-selected' : 'sidebar-menu-link'" (click)="changeTab(0)">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              error_outline
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Registos
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a [ngClass]="tabIndex === 2 ? 'sidebar-menu-link-selected' : 'sidebar-menu-link'" (click)="changeTab(2)">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              groups
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Equipa
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a class="sidebar-menu-link" (click)="getOpeningTerm()">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              description
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Termo de Abertura
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a class="sidebar-menu-link" *ngIf="work?.state === 'Terminada'" (click)="getSiteDiary()">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              menu_book
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Livro de Obra
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a class="sidebar-menu-link" *ngIf="checkCanAskVerification()" (click)="askVerification()">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              check
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Pedir verificação
+              </div>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a class="sidebar-menu-link" *ngIf="checkWorkCanFinish()" (click)="finishWorkCall()">
+              <div class="sidebar-menu-icon">
+            <span class="material-icons">
+              close
+            </span>
+              </div>
+              <div class="sidebar-menu-text">
+                Terminar Obra
+              </div>
+            </a>
+          </li>
+          <div style="margin-top: 20px"></div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="content" *ngIf="showLayout">
+    <div *ngIf="tabIndex == 0">
+      <div [class]="(checkActionPermissions('log') && !checkWorkRejected()) ? 'top-bar' : 'top-bar-permission'">
+        <input type="text" class="search-input" placeholder="Procurar Registo" [(ngModel)]="searchLogValue"
+               (ngModelChange)="filterResults(searchLogValue)">
+        <button *ngIf="checkActionPermissions('log') && !checkWorkRejected()" mat-fab color="primary"
+                aria-label="Example icon button with a delete icon" class="log-button"
+                (click)="createNewEntry()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <mat-list *ngFor="let entry of filteredLogList">
+          <mat-list-item (click)="onLogEntryClick(entry.id)">
+            <mat-icon class="item-icon" matListItemIcon>description</mat-icon>
+            <div matListItemTitle>{{ entry.createdAt }}</div>
+            <div matListItemLine>Registado por {{ entry.author.name }}</div>
+            <div matListItemMeta style="color: black">
+              <mat-icon *ngIf="entry.attachments">attach_file</mat-icon>
+              <mat-icon *ngIf="entry.editable">edit</mat-icon>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+    <div *ngIf="tabIndex == 1">
+      <div class="work-values">
+        <div class="notification">
+          <div class="notification-content">
+            <span class="notification-number">{{ work?.log?.length }}</span>
+            <span class="notification-text">Ocorrências</span>
+          </div>
+          <div class="notification-icon">
+            <span class="material-icons"> error_outline </span>
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-content">
+            <span class="notification-number">{{ work?.images }}</span>
+            <span class="notification-text">Imagens</span>
+          </div>
+          <div class="notification-icon">
+            <span class="material-icons"> image </span>
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-content">
+            <span class="notification-number">{{ work?.docs }}</span>
+            <span class="notification-text">Documentos</span>
+          </div>
+          <div class="notification-icon">
+            <span class="material-icons"> sticky_note_2 </span>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div style="width: 100%;">
+          <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between">
+            <h3 class="title">Informação Geral</h3>
+            <button *ngIf="checkActionPermissions('invite') && !editWork" class="invite-tech-button"
+                    (click)="toggleEditWork()">
+              <span class="material-icons fab-style">edit</span>
+            </button>
+            <button *ngIf="editWork" class="invite-tech-button" (click)="cancelEdit()">
+              <span class="material-icons fab-style">cancel</span>
+            </button>
+          </div>
+          <div class="topic">
+            <div class="topic-orientation">
+              <mat-label>Estado:</mat-label>
+              <span>{{ work?.state }}</span>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Tipo de Obra:</mat-label>
+              <span *ngIf="!editWork">{{ work?.type }}</span>
+              <select *ngIf="editWork" name="Type" [(ngModel)]="editWorkType">
+                <ng-container *ngFor="let type of types">
+                  <option [value]="type">{{ type }}</option>
+                </ng-container>
+              </select>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Prédio:</mat-label>
+              <span *ngIf="!editWork">{{ work?.building }}</span>
+              <input *ngIf="editWork" class="edit-input" type="text" id="building" placeholder="Prédio" name="building"
+                     [(ngModel)]="editBuilding" required>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Localização:</mat-label>
+              <span *ngIf="!editWork">{{ work?.address?.street }} {{ work?.address?.postalCode }}
+                , {{ work?.address?.location?.parish }}, {{ work?.address?.location?.county }}
+                , {{ work?.address?.location?.district }}</span>
+              <input class="edit-input" *ngIf="editWork" style="margin-left: 5px" type="text" id="street"
+                     placeholder="Rua" name="street" [(ngModel)]="editAddress.street" required>
+              <input class="edit-input" *ngIf="editWork" style="width: 5%; margin-left: 5px" type="text" id="postalCode"
+                     placeholder="Código Postal" name="postalCode" (input)="formatZipCode()"
+                     [(ngModel)]="editAddress.postalCode" required>
+              <select *ngIf="editWork" placeholder="Distrito" style="margin-left: 5px" class="selector" id="district"
+                      name="district"
+                      [(ngModel)]="editAddress.location.district">
+                <option value="" disabled selected>Distrito</option>
+                <ng-container *ngFor="let distrito of districts">
+                  <option [value]="distrito">{{ distrito }}</option>
+                </ng-container>
+              </select>
+              <select *ngIf="editWork" placeholder="Concelho" style="margin-left: 5px" class="selector" id="county"
+                      name="county"
+                      [(ngModel)]="editAddress.location.county" (change)="updateLocation(true)">
+                <option value="" disabled selected>Concelho</option>
+                <ng-container *ngFor="let concelho of counties">
+                  <option [value]="concelho">{{ concelho }}</option>
+                </ng-container>
+              </select>
+              <select *ngIf="editWork" placeholder="Freguesia" style="margin-left: 5px" class="selector" id="parish"
+                      name="Parish"
+                      [(ngModel)]="editAddress.location.parish" (change)="updateLocation(false)">
+                <option value="" disabled selected>Freguesia</option>
+                <ng-container *ngFor="let freguesia of parishes">
+                  <option [value]="freguesia">{{ freguesia }}</option>
+                </ng-container>
+              </select>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Titular da Licença:</mat-label>
+              <span *ngIf="!editWork">{{ work?.licenseHolder }}</span>
+              <input class="edit-input" *ngIf="editWork" type="text" id="holder" name="holder"
+                     placeholder="Titular da licença" [(ngModel)]="editHolder"
+                     required>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Descrição:</mat-label>
+              <span *ngIf="!editWork">{{ work?.description }}</span>
+              <input class="edit-input" *ngIf="editWork" type="text" id="workDescription" name="workDescription"
+                     placeholder="Descrição"
+                     [(ngModel)]="editWorkDescription" required>
+            </div>
+            <div class="topic-orientation">
+              <mat-label>Empresa de Construção:</mat-label>
+              <span *ngIf="!editWork">{{ work?.company?.name }} - N°. do Alvará: {{ work?.company?.num }}</span>
+              <input class="edit-input" *ngIf="editWork" type="text" id="companyName" name="companyName"
+                     placeholder="Nome da empresa"
+                     [(ngModel)]="editCompany.name" required>
+              <input class="edit-input" *ngIf="editWork" style="width: 5%; margin-left: 5px" type="text" id="companyNum"
+                     placeholder="N° do alvará"
+                     name="companyNum"
+                     [(ngModel)]="editCompany.num" [ngModel]="editCompany.num === 0? null : editCompany.num" required>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="technicians">
+            <h3 class="title">Equipa Técnica</h3>
+            <table *ngIf="editWork" mat-table [dataSource]="dataSourceEdit" class="table-edit mat-elevation-z8">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Nome</th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="element.submitted">{{ element.name }}</div>
+                  <div *ngIf="!element.submitted">
+                    <input class="edit-input" type="text" id="name" name="name" placeholder="Nome"
+                           [(ngModel)]="element.name">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="element.submitted">{{ element.email }}</div>
+                  <div *ngIf="!element.submitted">
+                    <input class="edit-input" type="text" id="email" name="email" placeholder="Email"
+                           [(ngModel)]="element.email">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef>Papel na Obra</th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="element.submitted || checkResponsability(element.position)">{{ element.role }}</div>
+                  <div *ngIf="!element.submitted && !checkResponsability(element.position)">
+                    <select id="seletorOpcoes" [(ngModel)]="element.role">
+                      <option *ngFor="let opcao of roles" [value]="opcao">{{ opcao }}</option>
+                    </select>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="association">
+                <th mat-header-cell *matHeaderCellDef>Associação</th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="element.submitted">{{ element.association.name }} | Número de
+                    associado {{ element.association.number }}
+                  </div>
+                  <div *ngIf="!element.submitted">
+                    <input class="edit-input" type="text" id="associationName" name="associationName"
+                           placeholder="Nome da associação"
+                           [(ngModel)]="element.association.name">
+                    <input class="edit-input" style="margin-left: 5px" type="number" id="associationNum"
+                           name="associationNum" placeholder="Número de associado"
+                           [(ngModel)]="element.association.number">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>
+                  <button class="invite-tech-button" (click)="addRowTech()">
+                    <span class="material-icons fab-style">add</span>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <button *ngIf="!element.submitted" class="submit-button" (click)="submitTech(element.position)">
+                    <span class="material-icons fab-style">check</span>
+                  </button>
+                  <button
+                    *ngIf="checkCanRemoveTech(element.role) && (!checkResponsability(element.position) || element.submitted)"
+                    class="remove-button"
+                    (click)="removeTech(element.position)">
+                    <span class="material-icons fab-style">delete</span>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsEdit; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsEdit;"></tr>
+            </table>
+            <table *ngIf="!editWork" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef>Papel na Obra</th>
+                <td mat-cell *matCellDef="let element">
+                  <div>{{ element.role }}</div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Nome</th>
+                <td mat-cell *matCellDef="let element">
+                  <div>{{ element.name }}</div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="association">
+                <th mat-header-cell *matHeaderCellDef>Associação</th>
+                <td mat-cell *matCellDef="let element">
+                  <div>{{ element.association.name }} | Número de associado {{ element.association.number }}</div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>
+                  <span>Convidar</span>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <button *ngIf="checkNotMember(element.role) && checkActionPermissions('invite')"
+                          class="invite-tech-button" (click)="inviteTech(element.role)">
+                    <span class="material-icons fab-style">person_add</span>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <button class="submit" *ngIf="editWork" (click)="onEditCall()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="members-content" *ngIf="tabIndex == 2">
+      <div [class]="checkActionPermissions('invite') && work?.state !== 'Rejeitada' ? 'top-bar' : 'top-bar-permission'">
+        <input type="text" class="search-input" placeholder="Procurar Membro" [(ngModel)]="searchMemberValue"
+               (ngModelChange)="filterMembers(searchMemberValue)">
+        <button *ngIf="checkActionPermissions('invite') && work?.state !== 'Rejeitada'" mat-fab color="primary"
+                aria-label="Example icon button with a delete icon" class="log-button"
+                (click)="onInviteClick()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <mat-list *ngFor="let entry of filteredMembers">
+          <mat-list-item (click)="onMemberClick(entry.name)">
+            <div matListItemTitle>{{ entry.name }}</div>
+            <div matListItemLine>{{ entry.role }}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+  <div class="content" *ngIf="!showLayout">
+    <router-outlet></router-outlet>
+  </div>
+</div>

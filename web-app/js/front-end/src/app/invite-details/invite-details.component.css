@@ -1,0 +1,66 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+
+.centered-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.action-button {
+  margin: 3px;
+}
+
+.invite-text {
+  margin: 25px;
+  font-size: 100%;
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.centered-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 30%;
+  width: auto;
+  height: auto;
+  background-color: #11113D;
+  color: #FF7A00;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.association-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.header-title {
+  font-size: 200%;
+  margin: 0;
+  text-align: center;
+}
+
+.form-association {
+  margin: 2px;
+}

@@ -1,0 +1,17 @@
+<section class="header">
+  <h2>Obras</h2>
+  <div class="input-button-container">
+    <input type="text" placeholder="Procurar Obra" [(ngModel)]="inputValue" (ngModelChange)="filterResults(inputValue)">
+    <button mat-fab (click)="createWork()" class="create-work-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</section>
+<section class="results">
+  <app-work-listings
+    *ngFor="let workListing of filteredWorkList"
+    [workListing]="workListing">
+  </app-work-listings>
+</section>
+<mat-paginator *ngIf="workElements > 6" #paginator [length]="workElements" pageSize="6" aria-label="Select page" [hidePageSize]="true"
+               (page)="onPageChange($event)"></mat-paginator>

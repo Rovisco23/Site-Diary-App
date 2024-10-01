@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.important-icon {
+  margin-right: 5px !important;
+}
+
+.content {
+  width: 100%;
+}
+
+
+.description {
+  margin-bottom: 20px;
+  width: 60% !important;
+  max-width: 60% !important;
+  overflow-wrap: break-word; /* Ensures long words break to fit within the container */
+  word-wrap: break-word; /* Compatibility for older browsers */
+}
+
+.profile-picture {
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #FF7A00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}

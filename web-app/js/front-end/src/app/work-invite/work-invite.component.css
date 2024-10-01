@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.important-icon {
+  margin-right: 5px !important;
+}
+
+.content {
+  width: 100%;
+}
+
+.table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.add-button {
+  height: auto;
+  width: auto;
+  border: 1px solid #FF7A00;
+  background-color: #11113D;
+  color: #FF7A00;
+}
+
+.add-button:hover {
+  background-color: #FF7A00;
+  color: white;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.remove-button .fab-style {
+  width: 30px;
+  height: 30px;
+  border-radius: 75%;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-button .fab-style:hover {
+  background-color: red;
+  color: white;
+}
+
+.submit-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.submit-button .fab-style {
+  width: 30px;
+  height: 30px;
+  border-radius: 75%;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-button .fab-style:hover {
+  background-color: green;
+  color: white;
+}
+
+.invites table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.invites th, .invites td {
+  border: 1px solid #FF7A00;
+  padding: 8px;
+  text-align: center;
+  width: 33.3% !important;
+  max-width: 33.3% !important;
+}
+
+.invites th {
+  background-color: #11113D;
+  color: #FF7A00;
+}
+
+.invites tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.submit {
+  display: block; /* Adicione isso para assegurar que o margin auto funcione */
+  margin: 20px auto; /* Centraliza horizontalmente e adiciona margem vertical */
+  padding: 10px;
+  background-color: #11113D;
+  border-radius: 5px;
+  border: 2px solid #FF7A00;
+  color: #FF7A00;
+  user-select: none;
+  text-align: center; /* Centraliza o texto dentro do botão */
+}
+
+.submit:hover {
+  background-color: #FF7A00;
+  color: white;
+  cursor: pointer;
+}

@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  spring-service:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile-spring
+    environment:
+      SERVER_PORT: 8080
+      JDBC_DOCKER_URL: "jdbc:postgresql://dpg-cq9d9hjv2p9s73chrls0-a.frankfurt-postgres.render.com:5432/sitediary_is8k?user=admin&password=VmkftCtoD5CQu9Z1j2zMifDSBzcS8Xv6"
+    ports:
+      - 8080:8080

@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon important-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <div class="content">
+    <div class="invites">
+      <h3>Convidar membros para a obra</h3>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.submitted">{{ element.email }}</div>
+            <div *ngIf="!element.submitted">
+              <input type="text" id="email" name="email" [(ngModel)]="element.email">
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef> Papel na Obra</th>
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.submitted">{{ element.role }}</div>
+            <div *ngIf="!element.submitted">
+              <select id="seletorOpcoes" [(ngModel)]="element.role">
+              <option *ngFor="let opcao of roles" [value]="opcao">{{ opcao }}</option>
+            </select>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>
+            <button class="add-button" mat-fab (click)="addRowInvite()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngIf="!element.submitted" class="submit-button" (click)="submitInvite(element.position)">
+              <span class="material-icons fab-style">check</span>
+            </button>
+            <button class="remove-button" (click)="removeInvite(element.position)">
+              <span class="material-icons fab-style">delete</span>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <button *ngIf="invites.length > 0" class="submit" (click)="sendInvites()">Enviar Convites</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  --mdc-snackbar-container-color: #11113D;
+  --mat-snack-bar-button-color: #FF7A00;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar-popup {
+  color: white !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.small-button {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.small-icon {
+  font-size: 27px;
+  margin-right: 2px;
+}

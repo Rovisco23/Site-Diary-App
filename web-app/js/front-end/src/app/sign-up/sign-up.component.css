@@ -1,0 +1,118 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #11113D;
+  overflow: auto;
+}
+
+.logo {
+  max-width: 60%; /* Adjust as needed */
+  height: auto;
+}
+
+.title {
+  color: #FF7A00;
+  font-size: 64px;
+  font-family: "Monotype Corsiva", serif; /* Specify font family */
+}
+
+.page-title {
+  color: #FF7A00;
+}
+
+form {
+  color: white;
+}
+
+.left, .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+form .three-inputs {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+}
+
+form .three-inputs .field input {
+  height: 17px !important;
+  min-width: 140px !important;
+  max-width: 140px !important;
+  border: 1px solid #11113D !important;
+  border-radius: 5px !important;
+  padding: 5px 5px !important;
+  margin-bottom: 5px !important;
+}
+
+
+select {
+  max-height: 30px;
+  width: 150px;
+  border: 1px solid #11113D;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.visibility-icon {
+  color: #FF7A00;
+  position: absolute;
+  top: 45%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+form .submit {
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #11113D;
+  border-radius: 5px;
+  border: 2px solid #FF7A00;
+  color: #FF7A00;
+  user-select: none;
+  text-align: center;
+  justify-content: center;
+}
+
+form .submit:hover {
+  background-color: #FF7A00;
+  color: white;
+  cursor: pointer;
+}
+
+.text {
+  color: #FF7A00;
+}
+
+.text a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -1,0 +1,23 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  width: 60% !important;
+  max-width: 60% !important;
+  overflow-wrap: break-word; /* Ensures long words break to fit within the container */
+  word-wrap: break-word; /* Compatibility for older browsers */
+}
+
+.search-input[type="text"] {
+  border: solid 1px #000000;
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  margin-left: 10px;
+  width: 30%; /* Adjust the width of the input */
+}

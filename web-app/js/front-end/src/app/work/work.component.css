@@ -1,0 +1,75 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Move items to opposite ends */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 10px; /* Remove default margin */
+}
+
+.create-work-button {
+  padding: 8px; /* Adjust padding for smaller button */
+  height: auto;
+  width: auto;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+input[type="text"] {
+  border: solid 1px #000000;
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  width: 30%; /* Adjust the width of the input */
+}
+
+button {
+  padding: 10px 20px; /* Adjust padding for better button size */
+  border: solid 1px #020241;
+  background: #0326da;
+  color: white;
+  border-radius: 8px;
+}
+
+.input-button-container {
+  display: flex;
+  justify-content: flex-end; /* Shifts the input container to the right */
+  align-items: center;
+  width: 100%;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 14px;
+  margin: 20px;
+  justify-content: space-around;
+  height: 80%;
+}
+
+@media (max-width: 499px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input[type="text"], button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 768px) {
+  input[type="text"] {
+    width: 70%;
+  }
+}
+

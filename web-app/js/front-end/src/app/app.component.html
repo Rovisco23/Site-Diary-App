@@ -1,0 +1,84 @@
+<main class="main-container" *ngIf="showLayout">
+  <mat-toolbar class="top-bar">
+    <button (click)="toggleDrawer()" mat-icon-button class="side-bar-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/work']">
+      <img src="./assets/logo.png" alt="Site Diary" class="top-bar-image">
+      <span class="logo-description">Livro de Obra</span>
+    </a>
+    <div class="profile">
+      <button class="notifications" (click)="onInvitesClick()">
+        <mat-icon *ngIf="notification > 0" aria-hidden="false" aria-label="Example home icon" fontIcon="notifications"
+                  [matBadge]="notification" matBadgeColor="warn">
+        </mat-icon>
+        <mat-icon *ngIf="notification === 0" aria-hidden="false" aria-label="Example home icon"
+                  fontIcon="notifications">
+        </mat-icon>
+      </button>
+      <button (click)="drawerProfile.toggle()" class="profile-button">
+        <img src="{{src}}" class="profile-image" alt="profile image" [width]="50" [height]="50">
+      </button>
+    </div>
+  </mat-toolbar>
+  <section class="container">
+    <mat-drawer-container class="full-height" hasBackdrop="false">
+      <mat-drawer #drawer class="side-bar" mode="side">
+        <button
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/work"
+          (click)="onWorkCall()">Obras
+        </button>
+        <button
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/create-work"
+          (click)="onCreateWorkCall()">Criar Obra
+        </button>
+        <button
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/my-logs"
+          (click)="onAllLogsCall()">Todos os Registos
+        </button>
+        <button *ngIf="checkAdminRole()"
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/users"
+          (click)="onUsersCall()">Listar Utilizadores
+        </button>
+        <button *ngIf="checkAdminRole()"
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/pending-users"
+          (click)="onPendingUsersCall()">Utilizadores Pendentes
+        </button>
+        <button *ngIf="checkRole()"
+          class="side-option-button"
+          routerLinkActive="side-option-active"
+          routerLink="/verifications"
+          (click)="onVerificationsCall()">Verificação de Obras
+        </button>
+      </mat-drawer>
+      <mat-drawer #drawerProfile class="profile-drawer" mode="over" position="end">
+        <div class="profile-content">
+          <button
+            class="side-option-button"
+            routerLinkActive="side-option-active"
+            [routerLink]="'/profile/' + getUserName()"
+            (click)="onProfileCall()">Perfil
+          </button>
+          <button
+            class="side-option-button"
+            (click)="logout()">Logout
+          </button>
+        </div>
+      </mat-drawer>
+      <mat-drawer-content>
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </section>
+</main>
+<router-outlet *ngIf="!showLayout"></router-outlet>

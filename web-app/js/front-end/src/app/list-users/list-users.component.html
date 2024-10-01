@@ -1,0 +1,23 @@
+<div class="main-container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <span class="title">Todos os utilizadores</span>
+</div>
+<div>
+  <input type="text" class="search-input" placeholder="Procurar Registo" [(ngModel)]="value"
+         (ngModelChange)="filterUsers(value)">
+</div>
+<mat-divider></mat-divider>
+<div>
+  <mat-list *ngFor="let item of filteredUsersList">
+    <mat-list-item>
+      <div matListItemTitle style="font-weight: bold" (click)="onUserClick(item.username)">{{ item.username }} - {{item.firstName}} {{item.lastName}} - {{item.role}}</div>
+      <div matListItemLine style="font-weight: bold">Email: {{item.email}} | NIF: {{ item.nif }} | Association: {{ item.association.name }} - {{ item.association.number }}</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>

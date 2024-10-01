@@ -1,0 +1,101 @@
+.card {
+  background-color: #11113D;
+  color: white;
+  width: 95%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden; /* Evita que o conteúdo transborde */
+}
+
+.card mat-card-header {
+  flex-shrink: 0; /* Impede que o cabeçalho encolha */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  flex-grow: 1; /* Permite que o conteúdo cresça para ocupar o espaço disponível */
+}
+
+.card-detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.card-detail mat-icon {
+  flex-shrink: 0; /* Impede que o ícone encolha */
+  margin-right: 10px;
+}
+
+.card-footer {
+  flex-shrink: 0; /* Impede que o rodapé encolha */
+}
+
+.card mat-card-subtitle {
+  font-size: 16px;
+  color: #FF7A00;
+}
+
+.card mat-divider {
+  background-color: #FF7A00;
+}
+
+.card mat-card-title {
+  font-size: 30px;
+  color: #FF7A00;
+  display: flex;
+  align-items: center; /* Alinha verticalmente os itens */
+}
+
+.card p {
+  font-size: 14px;
+  overflow: hidden; /* Evita que o texto transborde */
+  text-overflow: ellipsis; /* Adiciona "..." ao final do texto que não cabe */
+  white-space: nowrap; /* Impede a quebra de linha */
+}
+
+.card button {
+  width: 40px;
+  height: 30px;
+  color: white;
+  background-color: #11113D;
+  border: none;
+}
+
+.card button:hover {
+  background-color: #FF7A00;
+  color: white;
+}
+
+.card span {
+  font-size: 14px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center; /* Alinha verticalmente os ícones */
+  overflow: hidden; /* Evita que o texto transborde */
+  text-overflow: ellipsis; /* Adiciona "..." ao final do texto que não cabe */
+  white-space: nowrap; /* Impede a quebra de linha */
+}
+
+.card mat-icon {
+  height: 24px; /* Tamanho padrão do ícone */
+  width: 24px; /* Tamanho padrão do ícone */
+}
+
+.card div {
+  padding-right: 10px;
+}
+
+.accepted {
+  color: green;
+}
+
+button {
+  border-radius: 20%;
+}

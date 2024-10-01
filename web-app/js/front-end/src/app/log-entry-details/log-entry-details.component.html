@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon important-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <div class="content" *ngIf="log">
+    <div class="author">Autor: {{ log.author.name }}</div>
+    <div class="dates">
+      <div>Data de Criação: {{ log.createdAt }}</div>
+      <div>Data de Alteração: {{ log.modifiedAt }}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="description">
+      <h3>Observação
+        <mat-icon *ngIf="isEditable() && !editDescription" (click)="toggleEditDescription()">edit</mat-icon>
+      </h3>
+      <p *ngIf="!editDescription">{{ log.content }}</p>
+      <textarea *ngIf="editDescription" id="newContent" name="newContent" [(ngModel)]="newContent" (ngModelChange)="onChangeValues($event, 'Content')"></textarea>
+      <div class="button-row">
+        <button class="submit" *ngIf="editDescription" (click)="onEditLogCall('Content')">Submit</button>
+        <button class="submit" *ngIf="editDescription" (click)="toggleEditDescription(true)">Cancelar</button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="files">
+      <h3>Anexos</h3>
+      <input type="file" (change)="onFileUpload($event)" #fileInput style="display:none">
+      <button *ngIf="log.editable" type="button" class="add-button" (click)="openFileInput()">Adicionar Ficheiro</button>
+      <button *ngIf="!selection.isEmpty()" (click)="downloadFiles()">Transferir ficheiros</button>
+      <button *ngIf="!selection.isEmpty() && isEditable()" (click)="deleteFiles()">Apagar Ficheiros</button>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox *ngIf="log && log.files.length > 1" (change)="$event ? toggleAllRows() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row" style="text-align: center;">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let element"> {{ element.fileName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="uploadDate">
+          <th mat-header-cell *matHeaderCellDef>Data de Carregamento</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="file-info">
+              {{ representFileDate(element.uploadDate) }}
+              <button mat-icon-button class="file-menu-button" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="onDownloadFile(element.id)">
+                  <mat-icon>download</mat-icon>
+                  <span>Transferir Ficheiro</span>
+                </button>
+                <button *ngIf="isEditable()" mat-menu-item (click)="onDeleteFile(element.id, element.fileName)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Remover Ficheiro</span>
+                </button>
+              </mat-menu>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div style="height: 20px;"></div>
+    </div>
+  </div>
+</div>

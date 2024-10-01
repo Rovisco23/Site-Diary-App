@@ -1,0 +1,126 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.top-bar {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between; /* Align items on the toolbar */
+  background-color: #11113D;
+  color: #FF7A00;
+  height: 7%;
+}
+
+.top-bar a {
+  text-align: center;
+  text-decoration: none;
+}
+
+.top-bar-image {
+  height: 64px;
+  width: 64px;
+  vertical-align: middle;
+}
+
+.logo-description {
+  margin-left: 10px;
+  font-size: 20px;
+  color: #FF7A00;
+}
+
+.container {
+  height: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.side-bar {
+  background-color: #11113D;
+  width: 200px;
+}
+
+.side-bar-button {
+  background-color: #11113D;
+  color: #FF7A00;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.side-option-button {
+  background-color: #11113D; /* Default background color */
+  color: #ffffff; /* Default text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s; /* Add transition for smooth effect */
+  width: 100%;
+}
+
+.side-option-button:hover {
+  background-color: #FF7A00;
+  cursor: pointer;
+}
+
+.side-option-active {
+  background-color: #FF7A00;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.notifications {
+  background-color: transparent;
+  color: #FF7A00;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.badge {
+  background-color: red;
+  color: #ffffff;
+}
+
+.empty-badge {
+  background-color: transparent;
+  color: transparent;
+}
+
+
+.profile-button {
+  background-color: transparent; /* Set button background to transparent */
+  border: none; /* Remove button border */
+  cursor: pointer;
+}
+
+.profile-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.profile-drawer {
+  background-color: #11113D;
+  width: 100px;
+  height: fit-content;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+}
+
+@media all and (max-width: 500px) {
+  .container {
+    height: 95%;
+  }
+}

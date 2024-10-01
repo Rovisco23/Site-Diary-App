@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="left">
+    <img src="assets/logo.png" alt="" class="logo">
+    <h1 class="title">Livro de obra</h1>
+  </div>
+  <div class="right">
+    <div class="form">
+      <h1 class="page-title">Iniciar Sessão</h1>
+      <div class="input">
+        <div>
+          <label for="username">Utilizador</label>
+        </div>
+        <div>
+          <input type="text" id="username" name="username" placeholder="Username / Email" [(ngModel)]="username"
+                 required>
+        </div>
+      </div>
+      <div class="input">
+        <div>
+          <label for="password">Palavra Passe</label>
+        </div>
+        <div>
+          <input type="password" id="password" name="password" placeholder="Palavra passe" [(ngModel)]="password"
+                 required>
+        </div>
+      </div>
+      <div>
+        <button mat-stroked-button class="submit" (click)="login()">Login</button>
+      </div>
+    </div>
+    <div>
+      <p class="text">Não tens conta? <a (click)="onSignUpClick()">Regista-te aqui.</a></p>
+    </div>
+  </div>
+</div>

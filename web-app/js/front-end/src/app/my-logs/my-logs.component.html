@@ -1,0 +1,32 @@
+<div class="main-container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <span class="title">Todos os registos</span>
+  <div class="content">
+    <div>
+      <div class="top-bar">
+        <input type="text" class="search-input" placeholder="Procurar Registo" [(ngModel)]="searchLogValue"
+               (ngModelChange)="filterResults(searchLogValue)">
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <mat-list *ngFor="let entry of filteredLogList">
+          <mat-list-item (click)="onLogClick(entry.id, entry.workId)">
+            <mat-icon class="item-icon" matListItemIcon>description</mat-icon>
+            <div matListItemTitle>{{ entry.createdAt}}</div>
+            <div matListItemLine>Registado na obra {{ entry.workName }}</div>
+            <div matListItemMeta style="color: black">
+              <mat-icon *ngIf="entry.attachments" >attach_file</mat-icon>
+              <mat-icon *ngIf="entry.editable" >edit</mat-icon>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+</div>

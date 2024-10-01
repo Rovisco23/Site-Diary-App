@@ -1,0 +1,86 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  width: 60% !important;
+  max-width: 60% !important;
+  overflow-wrap: break-word; /* Ensures long words break to fit within the container */
+  word-wrap: break-word; /* Compatibility for older browsers */
+}
+
+input[type="text"] {
+  border: solid 1px #000000;
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  width: 30%; /* Adjust the width of the input */
+}
+
+mat-list {
+  padding: 0;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  align-content: center;
+}
+
+mat-list-item:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+mat-list-item .item-icon {
+  height: auto;
+  width: auto;
+  font-size: 40px;
+  color: #11113D;
+}
+
+matListItemTitle {
+  vertical-align: center;
+}
+
+input {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 499px) {
+  input[type="text"], button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 768px) {
+  input[type="text"] {
+    width: 70%;
+  }
+}
+
+.accept-button {
+  color: #4CAF50;
+}
+
+.refuse-button {
+  color: #f44336;
+}
+
+.accept-button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.refuse-button:hover {
+  background-color: #f44336;
+  color: white;
+}

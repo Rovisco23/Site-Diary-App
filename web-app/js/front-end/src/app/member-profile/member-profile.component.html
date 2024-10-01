@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon important-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+  <div class="content" *ngIf="member">
+    <div class="description">
+      <div>
+        <img class="profile-picture" src="{{ memberSrc }}" alt="Profile Picture">
+      </div>
+      <div>
+        <p><strong>Nome de Utilizador:</strong> {{ username }}</p>
+        <p><strong>Nome:</strong> {{ member.name }}</p>
+        <p><strong>Papel na Obra:</strong> {{ member.role }}</p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="description">
+      <h3>Contactos</h3>
+      <p><strong>Email:</strong> {{ member.email }}</p>
+      <p><strong>Telefone:</strong> {{ member.phone }}</p>
+    </div>
+
+  </div>
+  <div *ngIf="!member">
+    <h3>Não foi encontrado o membro</h3>
+  </div>
+</div>

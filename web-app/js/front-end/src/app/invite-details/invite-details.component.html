@@ -1,0 +1,23 @@
+<div class="main-container">
+  <div class="header">
+    <button mat-button (click)="onBackCall()" class="small-button">
+      <mat-icon class="small-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+</div>
+<div class="container">
+  <mat-card class="centered-card">
+    <mat-card-header>
+      <h1 class="header-title">Participar na obra {{ invite?.workTitle }}?</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <h2 class="invite-text">O administrador {{ invite?.admin }} convidou-te para participares nesta obra com o papel
+        de {{ invite?.role }}!</h2>
+    </mat-card-content>
+    <mat-card-actions class="centered-actions">
+      <button mat-raised-button class="action-button" color="primary" (click)="onAcceptCall()">Aceitar</button>
+      <button mat-raised-button class="action-button" color="warn" (click)="onRefuseCall()">Recusar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

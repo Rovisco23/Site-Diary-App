@@ -1,0 +1,31 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{ workListing.name }}
+      <mat-icon style="margin-left: 10px; color: green;" *ngIf="workListing.verification">verified</mat-icon>
+      <mat-icon style="margin-left: 10px; color: red;" *ngIf="workListing.state === 'REJEITADA'">cancel</mat-icon>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    <div>
+      <p>{{ workListing.description }}</p>
+      <div class="card-detail">
+        <mat-icon>person</mat-icon>
+        <span>{{ workListing.owner }}</span>
+      </div>
+      <div class="card-detail">
+        <mat-icon>location_pin</mat-icon>
+        <span>
+          {{ workListing.address.street }}, {{ workListing.address.postalCode }} |
+          {{ workListing.address.location.parish }}, {{ workListing.address.location.county }},
+          {{ workListing.address.location.district }}
+        </span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <mat-divider></mat-divider>
+      <mat-card-actions style="justify-content: center">
+        <button [routerLink]="['/work-details', workListing.id]">Ver</button>
+      </mat-card-actions>
+    </div>
+  </mat-card-content>
+</mat-card>
